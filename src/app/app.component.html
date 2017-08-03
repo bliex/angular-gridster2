@@ -1,7 +1,11 @@
 <md-toolbar colo="primary">
   <div class="main-toolbar">
-    <button md-mini-fab (click)="addItem()" mdTooltip="Add widget">
-      <md-icon>add</md-icon>
+    <div dnd-draggable draggable="true" [dragEnabled]="true" [dragData]="'dragdata-params'">
+      <img src="http://via.placeholder.com/100/989898/ffffff/?text=Drag+me" />
+    </div>
+
+    <button md-mini-fab (click)="addItem()" mdTooltip="Add widget and Drag me">
+      <md-icon dnd-draggable draggable="true" [dragEnabled]="true" [dragData]="'dragdata-params'">add</md-icon>
     </button>
     <md-select aria-label="Grid type" [(ngModel)]="options.gridType" (ngModelChange)="changedOptions()"
                placeholder="Grid Type">
@@ -106,28 +110,8 @@
   </div>
 </md-toolbar>
 
-<gridster [options]="options">
-  <gridster-item [item]="item" *ngFor="let item of dashboard">
-    <div class="button-holder">
-      <div class="gridster-item-content" *ngIf="item.hasContent">
-        <div class="stuff">
-          Some content to select and click without dragging the widget
-        </div>
-      </div>
-      <div class="item-buttons" *ngIf="item.hasContent">
-        <button md-icon-button md-raised-button class="drag-handler">
-          <md-icon>open_with</md-icon>
-        </button>
-        <button md-icon-button md-raised-button class="remove-button" (mousedown)="removeItem($event, item)"
-                (touchstart)="removeItem($event, item)" mdTooltip="Remove">
-          <md-icon>clear</md-icon>
-        </button>
-      </div>
-      <label *ngIf="!item.hasContent">{{item.label}}</label>
-      <button md-mini-fab *ngIf="!item.hasContent" (mousedown)="removeItem($event, item)"
-              (touchstart)="removeItem($event, item)" mdTooltip="Remove">
-        <md-icon>clear</md-icon>
-      </button>
-    </div>
+<gridster #gridsrter [options]="options" dnd-droppable (onDropSuccess)="simpleDrop($event, gridsrter)">
+  <gridster-item [item]="item" *ngFor="let item of dashboard;let i=index">
+    {{i}}
   </gridster-item>
 </gridster>

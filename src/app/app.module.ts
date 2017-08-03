@@ -1,7 +1,7 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import 'hammerjs';
 import {
   MdIconModule,
@@ -13,8 +13,9 @@ import {
   MdCheckboxModule
 } from '@angular/material';
 
-import {AppComponent} from './app.component';
-import {GridsterModule} from '../lib/gridster.module';
+import { AppComponent } from './app.component';
+import { GridsterModule } from '../lib/gridster.module';
+import { DndModule } from 'ng2-dnd';
 
 @NgModule({
   declarations: [
@@ -25,10 +26,12 @@ import {GridsterModule} from '../lib/gridster.module';
     BrowserAnimationsModule,
     FormsModule,
     MdIconModule, MdButtonModule, MdSelectModule, MdSliderModule, MdInputModule, MdTooltipModule, MdCheckboxModule,
-    GridsterModule
+    GridsterModule,
+    DndModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [DndModule]
 })
 export class AppModule {
 

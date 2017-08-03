@@ -307,6 +307,7 @@ export class GridsterComponent implements OnInit, OnDestroy {
   }
 
   addItem(itemComponent: GridsterItemComponent): void {
+    if (itemComponent.item === undefined) itemComponent.item = {};
     if (itemComponent.$item.cols === undefined) {
       itemComponent.$item.cols = this.$options.defaultItemCols;
       itemComponent.item.cols = itemComponent.$item.cols;

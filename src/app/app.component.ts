@@ -1,5 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {GridsterConfig} from '../lib/gridsterConfig.interface';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { GridsterConfig } from '../lib/gridsterConfig.interface';
+import { GridsterComponent } from '../lib/gridster.component';
+import { GridsterItem } from '../lib/gridsterItem.interface';
+import { GridsterItemComponent } from '../lib/gridsterItem.component';
 
 @Component({
   selector: 'gridster-root',
@@ -29,7 +32,7 @@ export class AppComponent implements OnInit {
 
   emptyCellClick(event, item) {
     console.info('empty cell click', event, item);
-    this.dashboard.push(item);
+    // this.dashboard.push(item);
   }
 
   ngOnInit() {
@@ -53,7 +56,7 @@ export class AppComponent implements OnInit {
       defaultItemRows: 1,
       fixedColWidth: 105,
       fixedRowHeight: 105,
-      enableEmptyCellClickDrag: false,
+      enableEmptyCellClickDrag: true,
       emptyCellClickCallback: this.emptyCellClick.bind(this),
       draggable: {
         enabled: true,
@@ -69,17 +72,17 @@ export class AppComponent implements OnInit {
     };
 
     this.dashboard = [
-      {cols: 2, rows: 1, y: 0, x: 0},
-      {cols: 2, rows: 2, y: 0, x: 2, hasContent: true},
-      {cols: 1, rows: 1, y: 0, x: 4},
-      {cols: 1, rows: 1, y: 2, x: 5},
-      {cols: undefined, rows: undefined, y: 1, x: 0},
-      {cols: 1, rows: 1, y: undefined, x: undefined},
-      {cols: 2, rows: 2, y: 3, x: 5, minItemRows: 2, minItemCols: 2, label: 'Min rows & cols = 2'},
-      {cols: 2, rows: 2, y: 2, x: 0, maxItemRows: 2, maxItemCols: 2, label: 'Max rows & cols = 2'},
-      {cols: 2, rows: 1, y: 2, x: 2, dragEnabled: true, resizeEnabled: true, label: 'Drag&Resize Enabled'},
-      {cols: 1, rows: 1, y: 2, x: 4, dragEnabled: false, resizeEnabled: false, label: 'Drag&Resize Disabled'},
-      {cols: 1, rows: 1, y: 2, x: 6, initCallback: AppComponent.itemInit}
+      { cols: 2, rows: 1, y: 0, x: 0 },
+      { cols: 2, rows: 2, y: 0, x: 2 },
+      { cols: 1, rows: 1, y: 0, x: 4 },
+      { cols: 1, rows: 1, y: 2, x: 5 },
+      { cols: undefined, rows: undefined, y: 1, x: 0 },
+      { cols: 1, rows: 1, y: undefined, x: undefined },
+      { cols: 2, rows: 2, y: 3, x: 5, minItemRows: 2, minItemCols: 2, label: 'Min rows & cols = 2' },
+      { cols: 2, rows: 2, y: 2, x: 0, maxItemRows: 2, maxItemCols: 2, label: 'Max rows & cols = 2' },
+      { cols: 2, rows: 1, y: 2, x: 2, dragEnabled: true, resizeEnabled: true, label: 'Drag&Resize Enabled' },
+      { cols: 1, rows: 1, y: 2, x: 4, dragEnabled: false, resizeEnabled: false, label: 'Drag&Resize Disabled' },
+      { cols: 1, rows: 1, y: 2, x: 6, initCallback: AppComponent.itemInit }
     ];
   }
 
@@ -95,5 +98,14 @@ export class AppComponent implements OnInit {
 
   addItem() {
     this.dashboard.push({});
+  }
+
+  simpleDrop(event, gridsrter: GridsterComponent) {
+    const item = gridsrter.getValidItemFromEvent(event.mouseEvent);
+
+    this.dashboard.push(item);
+
+
+    console.info(item);
   }
 }
